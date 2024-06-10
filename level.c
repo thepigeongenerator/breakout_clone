@@ -18,4 +18,23 @@ void level_init(Level* level) {
 }
 
 //updates the level
-void level_update(Level* level, bool* keys) {}
+void level_update(Level* level, bool* keys) {
+    Position* bouncer_pos = &level->bouncer.pos;
+    // if move bouncer LEFT
+    if (keys[SDLK_a]) {
+        bouncer_pos->x--;
+
+        if (bouncer_pos->x == 0) {
+            bouncer_pos->x = SCREEN_WIDTH - level->bouncer.width;
+        }
+    }
+
+    // if move bouncer RIGHT
+    if (keys[SDLK_d]) {
+        bouncer_pos->x++; // increase the bouncer pos
+
+        if ((bouncer_pos->x + level->bouncer.width) > SCREEN_WIDTH) {
+            bouncer_pos->x = 1; //set the bouncer pos to 1
+        }
+    }
+}

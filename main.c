@@ -71,7 +71,7 @@ int main(void) {
     Level level = { 0 };            //stores the game's state
     SDL_Window* window = NULL;      //the window that is given to the OS
     SDL_Renderer* renderer = NULL;  //the renderer used to draw to the window
-    bool keys[322] = { 0 };         //stores the key states
+    bool keys[322] = { 0 };         //stores the key states TODO: find a better method than to use 322 bytes
 
     // initialize
     {
