@@ -15,7 +15,7 @@ int renderer_init(SDL_Window** window, SDL_Renderer** renderer) {
     }
 
     // init the window
-    *window = SDL_CreateWindow("Title", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    *window = SDL_CreateWindow("Quinn's Breakout Clone", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (*window == NULL) {
         (void)printf("Window failed to be created! SDL_Error: %s\n", SDL_GetError());
         return FAILURE_SDL_WINDOW;
