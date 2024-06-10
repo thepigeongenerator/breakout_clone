@@ -21,11 +21,6 @@ void level_init(Level* level) {
     level->bouncer.width = BOUNCER_WIDTH_DEFAULT;
 }
 
-
-void ball_collisions(struct Ball* ball) {
-
-}
-
 //updates the level
 void level_update(Level* level, bool* keys) {
     struct Bouncer* bouncer = &level->bouncer;
