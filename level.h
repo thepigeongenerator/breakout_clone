@@ -9,7 +9,7 @@ typedef struct {
 
 typedef struct {
     struct {
-        unsigned radius;
+        unsigned size;
         Position pos;
     } ball;
 

@@ -34,15 +34,27 @@ int renderer_init(SDL_Window** window, SDL_Renderer** renderer) {
 
 // renders the screen
 void renderer_update(RenderData* render_data) {
-    // render background
-    (void)SDL_SetRenderDrawColor(render_data->renderer, 0x00, 0x00, 0x00, 0xFF);
-    (void)SDL_RenderClear(render_data->renderer);
+    SDL_Renderer* renderer = render_data->renderer;
+    Level* level = render_data->level;
 
-    //TODO: render ball as a circle at render_data->level->ball.pos
-    //TODO: render bouncer as a bar at render_data->level->bouncer.pos
+    int success = 0; // if an error occurs, this value is <0
+
+    // render background
+    success |= SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+    success |= SDL_RenderClear(renderer);
+
+    //draw player components
+    success |= SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    success |= SDL_RenderFillRect(renderer, &(SDL_Rect) {level->bouncer.pos.x, level->bouncer.pos.y, level->bouncer.width, 5});
+    success |= SDL_RenderFillRect(renderer, &(SDL_Rect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size});
+
+    if (success < 0) {
+        printf("something went wrong whilst rendering: %s\n", SDL_GetError());
+        exit(FAILURE_SDL_RENDERER);
+    }
 
     // present the result to the renderer
-    SDL_RenderPresent(render_data->renderer);
+    SDL_RenderPresent(renderer);
 }
 
 void renderer_destroy(SDL_Window* window, SDL_Renderer* renderer) {
