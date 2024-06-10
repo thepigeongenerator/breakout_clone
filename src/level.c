@@ -13,7 +13,7 @@ void level_init(Level* level) {
     level->ball.pos.x = (SCREEN_WIDTH / 2) - (BALL_SIZE_DEFAULT / 2);
     level->ball.pos.y = (SCREEN_HEIGHT / 2) - (BALL_SIZE_DEFAULT / 2);
     level->ball.size = BALL_SIZE_DEFAULT;
-    level->ball.direction = (Vector2){ 0.2F, 0.2F };
+    level->ball.direction = (Vector2){ 0, BALL_SPEED};
 
     // initialize bouncer
     level->bouncer.pos.x = (SCREEN_WIDTH / 2) - (BOUNCER_WIDTH_DEFAULT / 2);
@@ -33,21 +33,19 @@ void level_update(Level* level, bool* keys) {
 
     // if move bouncer LEFT
     if (keys[SDLK_a]) {
-        bouncer->pos.x -= 0.5F;
         ball->moving = true;
 
-        if (bouncer->pos.x == 0) {
-            bouncer->pos.x = SCREEN_WIDTH - bouncer->width;
+        if (bouncer->pos.x < 0 == false) {
+            bouncer->pos.x -= 0.5F;
         }
     }
 
     // if move bouncer RIGHT
     if (keys[SDLK_d]) {
-        bouncer->pos.x += 0.5F; // increase the bouncer pos
         ball->moving = true;
 
-        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH) {
-            bouncer->pos.x = 1; //set the bouncer pos to 1
+        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
+            bouncer->pos.x += 0.5F; // increase the bouncer pos
         }
     }
 
@@ -73,7 +71,12 @@ void level_update(Level* level, bool* keys) {
     // check bouncer collisions
     if ((ball->pos.x + ball->size) > bouncer->pos.x && ball->pos.x < (bouncer->pos.x + bouncer->width) &&
         (ball->pos.y + ball->size) > bouncer->pos.y && ball->pos.y < (bouncer->pos.y + BOUNCER_HEIGHT)) {
-        ball->direction.y *= -1;
+        float x = ball->pos.x - bouncer->pos.x + (ball->size / 2);
+        unsigned max = bouncer->width;
+        float angle = (x - (0.5F * max)) / max * PI;
+
+        ball->direction.x = SDL_sinf(angle) * BALL_SPEED;
+        ball->direction.y = -SDL_cosf(angle) * BALL_SPEED;
     }
 
     // check lose condition
