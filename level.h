@@ -8,8 +8,15 @@ typedef struct {
 } Position;
 
 typedef struct {
-    Position ball_pos;
-    Position bouncer_pos;
+    struct {
+        unsigned radius;
+        Position pos;
+    } ball;
+
+    struct {
+        unsigned width;
+        Position pos;
+    } bouncer;
 } Level;
 
 

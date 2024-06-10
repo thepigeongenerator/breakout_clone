@@ -2,12 +2,9 @@
 
 #include <SDL2/SDL.h>
 #include <stdio.h>
-
 #include "error_codes.h"
 #include "level.h"
-
-#define SCREEN_WIDTH 960
-#define SCREEN_HEIGHT 640
+#include "constants.h"
 
 // initializes the window and renderer
 int renderer_init(SDL_Window** window, SDL_Renderer** renderer) {
@@ -37,14 +34,15 @@ int renderer_init(SDL_Window** window, SDL_Renderer** renderer) {
 
 // renders the screen
 void renderer_update(RenderData* render_data) {
-    int success = 0x0;
-    success | SDL_SetRenderDrawColor(render_data->renderer, 0x00, 0x00, 0x00, 0xFF);
-    success | SDL_RenderClear(render_data->renderer);
-    SDL_RenderPresent(render_data->renderer);
+    // render background
+    (void)SDL_SetRenderDrawColor(render_data->renderer, 0x00, 0x00, 0x00, 0xFF);
+    (void)SDL_RenderClear(render_data->renderer);
 
-    if (success != 0) {
-        printf("something went wrong during the render update! -> %d", success);
-    }
+    //TODO: render ball as a circle at render_data->level->ball.pos
+    //TODO: render bouncer as a bar at render_data->level->bouncer.pos
+
+    // present the result to the renderer
+    SDL_RenderPresent(render_data->renderer);
 }
 
 void renderer_destroy(SDL_Window* window, SDL_Renderer* renderer) {
