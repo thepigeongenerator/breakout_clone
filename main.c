@@ -85,7 +85,7 @@ int main(void) {
 
     // game-loop
     RenderData render_data = { window, renderer, &level }; //contains the data which is used to render the game
-    while (update(&level, keys, &render_data));
+    while (update(&level, keys, &render_data) && (level.stop == false));
 
     // frees media and shuts down SDL
     close(window, renderer);

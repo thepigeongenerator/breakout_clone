@@ -45,8 +45,8 @@ void renderer_update(RenderData* render_data) {
 
     //draw player components
     success |= SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    success |= SDL_RenderFillRect(renderer, &(SDL_Rect) {level->bouncer.pos.x, level->bouncer.pos.y, level->bouncer.width, 5});
-    success |= SDL_RenderFillRect(renderer, &(SDL_Rect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size});
+    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->bouncer.pos.x, level->bouncer.pos.y, level->bouncer.width, 5});
+    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size});
 
     if (success < 0) {
         printf("something went wrong whilst rendering: %s\n", SDL_GetError());

@@ -1,21 +1,21 @@
 #pragma once
 #include <stdbool.h>
 #include <SDL2/SDL.h>
+#include "vector2.h"
 
 typedef struct {
-    unsigned x;
-    unsigned y;
-} Position;
+    bool stop;
 
-typedef struct {
-    struct {
+    struct Ball {
+        bool moving;
         unsigned size;
-        Position pos;
+        Vector2 pos;
+        Vector2 direction;
     } ball;
 
-    struct {
+    struct Bouncer {
         unsigned width;
-        Position pos;
+        Vector2 pos;
     } bouncer;
 } Level;
 
