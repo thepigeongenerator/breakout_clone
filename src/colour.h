@@ -1,9 +1,9 @@
 typedef union {
-    struct {
-        unsigned char r;
-        unsigned char g;
-        unsigned char b;
-        unsigned char a;
-    };
     unsigned packed;
+    struct {
+        unsigned char a;
+        unsigned char b;
+        unsigned char g;
+        unsigned char r;
+    };
 } Colour;
