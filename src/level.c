@@ -102,6 +102,7 @@ void level_update(Level* level, const Uint8* keys) {
     }
 
     // check brick collisions
+    bool collided = false;
     for (int x = 0; x < BRICK_COLUMNS; x++) {
         for (int y = 0; y < BRICK_ROWS; y++) {
             const Brick* brick = &level->bricks[x][y];
@@ -115,19 +116,29 @@ void level_update(Level* level, const Uint8* keys) {
             if (ball->pos.x < max_brick_x && (ball->pos.x + ball->size) > brick->pos.x &&
                 ball->pos.y < max_brick_y && (ball->pos.y + ball->size) > brick->pos.y) {
 
-                // manage ball bounce direction
-                if (ball->direction.x > ball->direction.y) {
-                    ball->direction.x *= -1;
+                float ball_abs_dir_x = abs(ball->direction.x);
+                float ball_abs_dir_y = abs(ball->direction.y);
+
+                level->bricks[x][y].destroyed = true;
+
+                // skip changing direction of we already did
+                if (collided == true) {
+                    continue;
                 }
-                if (ball->direction.x < ball->direction.y) {
+
+                // manage ball bounce direction
+                if (ball_abs_dir_x < ball_abs_dir_y) {
                     ball->direction.y *= -1;
+                }
+                else if (ball_abs_dir_x > ball_abs_dir_y) {
+                    ball->direction.x *= -1;
                 }
                 else {
                     ball->direction.x *= -1;
                     ball->direction.y *= -1;
                 }
 
-                level->bricks[x][y].destroyed = true;
+                collided = true;
             }
         }
     }
