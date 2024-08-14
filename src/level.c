@@ -24,11 +24,11 @@ void level_init(Level* level) {
     // initialize bricks
     // define the colours of the brick rows
     const Colour colours[BRICK_COLUMNS] = {
-        {0x3DA542FF},
-        {0xA6D378FF},
+        {0x5BCEFAFF},
+        {0xF5A9B8FF},
         {0xFFFFFFFF},
-        {0xA8A8A8FF},
-        {0x202020FF}
+        {0xF5A9B8FF},
+        {0x5BCEFAFF}
     };
 
     int brick_width = BRICK_WIDTH + BRICK_PADDING;
