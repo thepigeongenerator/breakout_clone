@@ -54,7 +54,7 @@ void renderer_update(RenderData* render_data) {
         for (int y = 0; y < BRICK_ROWS; y++) {
             Brick* brick = &level->bricks[x][y];
 
-            if (brick == NULL) {
+            if (brick->destroyed == true) {
                 continue;
             }
 

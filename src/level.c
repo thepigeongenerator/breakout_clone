@@ -42,6 +42,7 @@ void level_init(Level* level) {
             brick->colour = colours[y];
             brick->pos.x = (x * brick_width) + level_padding_left;
             brick->pos.y = (y * brick_height) + BRICK_PADDING_TOP;
+            brick->destroyed = false;
         }
     }
 }
@@ -98,6 +99,37 @@ void level_update(Level* level, bool* keys) {
         // change the ball direction
         ball->direction.x = SDL_sinf(angle) * BALL_SPEED;
         ball->direction.y = -SDL_cosf(angle) * BALL_SPEED;
+    }
+
+    // check brick collisions
+    for (int x = 0; x < BRICK_COLUMNS; x++) {
+        for (int y = 0; y < BRICK_ROWS; y++) {
+            const Brick* brick = &level->bricks[x][y];
+
+            if (brick->destroyed == true) {
+                continue;
+            }
+
+            const float max_brick_x = brick->pos.x + BRICK_WIDTH;
+            const float max_brick_y = brick->pos.y + BRICK_HEIGHT;
+            if (ball->pos.x < max_brick_x && (ball->pos.x + ball->size) > brick->pos.x &&
+                ball->pos.y < max_brick_y && (ball->pos.y + ball->size) > brick->pos.y) {
+
+                // manage ball bounce direction
+                if (ball->direction.x > ball->direction.y) {
+                    ball->direction.x *= -1;
+                }
+                if (ball->direction.x < ball->direction.y) {
+                    ball->direction.y *= -1;
+                }
+                else {
+                    ball->direction.x *= -1;
+                    ball->direction.y *= -1;
+                }
+
+                level->bricks[x][y].destroyed = true;
+            }
+        }
     }
 
     // check lose condition

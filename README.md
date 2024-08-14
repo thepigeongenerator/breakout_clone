@@ -4,3 +4,5 @@ I wanted a project to learn C and the SDL framework in, and settled upon this ga
 ### TODO:
 - make a better input system (one that doesn't crash the game)
 - make beeping sound effects
+- make the game freeze when you lost instead of closing
+- fix constants in level colision detection

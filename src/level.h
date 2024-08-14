@@ -20,6 +20,7 @@ typedef struct {
 typedef struct {
     Vector2 pos;
     Colour colour;
+    bool destroyed;
 } Brick;
 
 typedef struct {
