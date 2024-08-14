@@ -3,6 +3,5 @@ I wanted a project to learn C and the SDL framework in, and settled upon this ga
 
 ### TODO:
 - make a better input system (one that doesn't crash the game)
-- make the bricks (make sure they've got some space up top)
 - make the bouncer collisions more reliable
 - make beeping sound effects
