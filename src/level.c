@@ -115,10 +115,6 @@ void level_update(Level* level, const Uint8* keys) {
             const float max_brick_y = brick->pos.y + BRICK_HEIGHT;
             if (ball->pos.x < max_brick_x && (ball->pos.x + ball->size) > brick->pos.x &&
                 ball->pos.y < max_brick_y && (ball->pos.y + ball->size) > brick->pos.y) {
-
-                float ball_abs_dir_x = abs(ball->direction.x);
-                float ball_abs_dir_y = abs(ball->direction.y);
-
                 level->bricks[x][y].destroyed = true;
 
                 // skip changing direction of we already did
@@ -127,15 +123,11 @@ void level_update(Level* level, const Uint8* keys) {
                 }
 
                 // manage ball bounce direction
-                if (ball_abs_dir_x < ball_abs_dir_y) {
+                if (abs(ball->direction.x) <= abs(ball->direction.y)) {
                     ball->direction.y *= -1;
-                }
-                else if (ball_abs_dir_x > ball_abs_dir_y) {
-                    ball->direction.x *= -1;
                 }
                 else {
                     ball->direction.x *= -1;
-                    ball->direction.y *= -1;
                 }
 
                 collided = true;
