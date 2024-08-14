@@ -48,12 +48,12 @@ void level_init(Level* level) {
 }
 
 //updates the level
-void level_update(Level* level, bool* keys) {
+void level_update(Level* level, const Uint8* keys) {
     Bouncer* bouncer = &level->bouncer;
     Ball* ball = &level->ball;
 
     // if move bouncer LEFT
-    if (keys[SDLK_a]) {
+    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
         ball->moving = true;
 
         if (bouncer->pos.x < 0 == false) {
@@ -62,7 +62,7 @@ void level_update(Level* level, bool* keys) {
     }
 
     // if move bouncer RIGHT
-    if (keys[SDLK_d]) {
+    if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
         ball->moving = true;
 
         if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {

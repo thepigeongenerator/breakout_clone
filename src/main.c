@@ -17,7 +17,7 @@ static int init(SDL_Window** window, SDL_Renderer** renderer, Level* level) {
 }
 
 // called on each game update
-static bool update(Level* level, bool* keys, RenderData* render_data) {
+static bool update(Level* level, const Uint8* keys, RenderData* render_data) {
     const clock_t clock_start = clock();
 
     //update the event keys
@@ -27,13 +27,6 @@ static bool update(Level* level, bool* keys, RenderData* render_data) {
             switch (e.type) {
             case SDL_QUIT:
                 return false;
-                break;
-
-            case SDL_KEYDOWN:
-                keys[e.key.keysym.sym] = true;
-                break;
-            case SDL_KEYUP:
-                keys[e.key.keysym.sym] = false;
                 break;
             }
         }
@@ -71,7 +64,6 @@ int main(void) {
     Level level = { 0 };            //stores the game's state
     SDL_Window* window = NULL;      //the window that is given to the OS
     SDL_Renderer* renderer = NULL;  //the renderer used to draw to the window
-    bool keys[322] = { 0 };         //stores the key states TODO: find a better method than to use 322 bytes
 
     // initialize
     {
@@ -85,7 +77,7 @@ int main(void) {
 
     // game-loop
     RenderData render_data = { window, renderer, &level }; //contains the data which is used to render the game
-    while (update(&level, keys, &render_data) && (level.stop == false));
+    while (update(&level, SDL_GetKeyboardState(NULL), &render_data) && (level.stop == false));
 
     // frees media and shuts down SDL
     close(window, renderer);

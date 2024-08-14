@@ -32,4 +32,4 @@ typedef struct {
 
 
 void level_init(Level* level);
-void level_update(Level* level, bool* keys);
+void level_update(Level* level, const Uint8* keys);
