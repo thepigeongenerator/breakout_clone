@@ -43,10 +43,25 @@ void renderer_update(RenderData* render_data) {
     success |= SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
     success |= SDL_RenderClear(renderer);
 
-    //draw player components
+    // draw player components
     success |= SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->bouncer.pos.x, level->bouncer.pos.y, level->bouncer.width, 5});
-    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size});
+    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->bouncer.pos.x, level->bouncer.pos.y, level->bouncer.width, 5}); // draw bouncer
+    success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size}); // draw ball
+
+    // draw bricks
+    int bricks_left = 0;
+    for (int x = 0; x < BRICK_COLUMNS; x++) {
+        for (int y = 0; y < BRICK_ROWS; y++) {
+            Brick* brick = &level->bricks[x][y];
+
+            if (brick == NULL) {
+                continue;
+            }
+
+            success |= SDL_SetRenderDrawColor(renderer, brick->colour.r, brick->colour.g, brick->colour.b, brick->colour.a);
+            success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {brick->pos.x, brick->pos.y, BRICK_WIDTH, BRICK_HEIGHT}); // draw brick
+        }
+    }
 
     if (success < 0) {
         printf("something went wrong whilst rendering: %s\n", SDL_GetError());
