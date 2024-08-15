@@ -47,32 +47,8 @@ void level_init(Level* level) {
     }
 }
 
-//updates the level
-void level_update(Level* level, const Uint8* keys) {
-    Bouncer* bouncer = &level->bouncer;
-    Ball* ball = &level->ball;
-
-    // if move bouncer LEFT
-    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
-        ball->moving = true;
-
-        if (bouncer->pos.x < 0 == false) {
-            bouncer->pos.x -= BOUNCER_SPEED;
-        }
-    }
-
-    // if move bouncer RIGHT
-    if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
-        ball->moving = true;
-
-        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
-            bouncer->pos.x += BOUNCER_SPEED; // increase the bouncer pos
-        }
-    }
-
-    if (ball->moving == false)
-        return;
-
+// updates the player's ball
+static void update_ball(Level* level, Ball* ball, Bouncer* bouncer) {
     // update ball position
     ball->pos.x += ball->direction.x;
     ball->pos.y += ball->direction.y;
@@ -134,6 +110,39 @@ void level_update(Level* level, const Uint8* keys) {
             }
         }
     }
+}
+
+// updates the player's "bouncer"
+static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
+    // if move bouncer LEFT
+    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
+        ball->moving = true;
+
+        if (bouncer->pos.x < 0 == false) {
+            bouncer->pos.x -= BOUNCER_SPEED;
+        }
+    }
+
+    // if move bouncer RIGHT
+    if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
+        ball->moving = true;
+
+        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
+            bouncer->pos.x += BOUNCER_SPEED; // increase the bouncer pos
+        }
+    }
+}
+
+//updates the level
+void level_update(Level* level, const Uint8* keys) {
+    Bouncer* bouncer = &level->bouncer;
+    Ball* ball = &level->ball;
+
+    update_player(bouncer, ball, keys);
+
+    if (ball->moving == true)
+        update_ball(level, ball, bouncer);
+
 
     // check lose condition
     if ((ball->pos.y + ball->size) > SCREEN_HEIGHT) {
