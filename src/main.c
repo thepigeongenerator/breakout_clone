@@ -81,5 +81,6 @@ int main(void) {
 
     // frees media and shuts down SDL
     close(window, renderer);
+    (void)printf("finished!\n");
     return 0;
 }

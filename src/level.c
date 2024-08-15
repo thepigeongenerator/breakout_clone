@@ -10,16 +10,16 @@
 void level_init(Level* level) {
     level->stop = false;
 
-    // initialize ball
-    level->ball.pos.x = (SCREEN_WIDTH / 2) - (BALL_SIZE_DEFAULT / 2);
-    level->ball.pos.y = (SCREEN_HEIGHT / 2) - (BALL_SIZE_DEFAULT / 2);
-    level->ball.size = BALL_SIZE_DEFAULT;
-    level->ball.direction = (Vector2){ 0, BALL_SPEED };
-
     // initialize bouncer
     level->bouncer.pos.x = (SCREEN_WIDTH / 2) - (BOUNCER_WIDTH_DEFAULT / 2);
     level->bouncer.pos.y = SCREEN_HEIGHT - (BOUNCER_HEIGHT * 2);
     level->bouncer.width = BOUNCER_WIDTH_DEFAULT;
+
+    // initialize ball
+    level->ball.pos.x = (SCREEN_WIDTH / 2) - (BALL_SIZE_DEFAULT / 2);
+    level->ball.pos.y = level->bouncer.pos.y - BOUNCER_HEIGHT - BALL_SIZE_DEFAULT;
+    level->ball.size = BALL_SIZE_DEFAULT;
+    level->ball.direction = (Vector2){ 0, -BALL_SPEED };
 
     // initialize bricks
     // define the colours of the brick rows
@@ -51,20 +51,27 @@ void level_init(Level* level) {
 static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
     // if move bouncer LEFT
     if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
-        ball->moving = true;
-
         if (bouncer->pos.x < 0 == false) {
             bouncer->pos.x -= BOUNCER_SPEED;
+
+            if (ball->moving == false)
+                ball->pos.x -= BOUNCER_SPEED;
         }
     }
 
     // if move bouncer RIGHT
     if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
-        ball->moving = true;
-
         if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
             bouncer->pos.x += BOUNCER_SPEED; // increase the bouncer pos
+
+            if (ball->moving == false)
+                ball->pos.x += BOUNCER_SPEED;
         }
+    }
+
+    // ball launching
+    if (ball->moving == false && keys[SDL_SCANCODE_SPACE]) {
+        ball->moving = true;
     }
 }
 
