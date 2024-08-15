@@ -47,6 +47,27 @@ void level_init(Level* level) {
     }
 }
 
+// updates the player's "bouncer"
+static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
+    // if move bouncer LEFT
+    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
+        ball->moving = true;
+
+        if (bouncer->pos.x < 0 == false) {
+            bouncer->pos.x -= BOUNCER_SPEED;
+        }
+    }
+
+    // if move bouncer RIGHT
+    if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
+        ball->moving = true;
+
+        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
+            bouncer->pos.x += BOUNCER_SPEED; // increase the bouncer pos
+        }
+    }
+}
+
 // updates the player's ball
 static void update_ball(Level* level, Ball* ball, Bouncer* bouncer) {
     // update ball position
@@ -111,27 +132,6 @@ static void update_ball(Level* level, Ball* ball, Bouncer* bouncer) {
 
                 collided = true;
             }
-        }
-    }
-}
-
-// updates the player's "bouncer"
-static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
-    // if move bouncer LEFT
-    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
-        ball->moving = true;
-
-        if (bouncer->pos.x < 0 == false) {
-            bouncer->pos.x -= BOUNCER_SPEED;
-        }
-    }
-
-    // if move bouncer RIGHT
-    if (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) {
-        ball->moving = true;
-
-        if ((bouncer->pos.x + bouncer->width) > SCREEN_WIDTH == false) {
-            bouncer->pos.x += BOUNCER_SPEED; // increase the bouncer pos
         }
     }
 }
