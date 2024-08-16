@@ -96,9 +96,9 @@ static void update_ball(Level* level, Ball* ball, Bouncer* bouncer) {
     // check bouncer collisions
     if ((ball->pos.x + ball->size) > bouncer->pos.x && ball->pos.x < (bouncer->pos.x + bouncer->width) &&
         (ball->pos.y + ball->size) > bouncer->pos.y && ball->pos.y < (bouncer->pos.y + BOUNCER_HEIGHT)) {
-        float x = ball->pos.x - bouncer->pos.x + (ball->size / 2); // get the X axis relative to the bouncer
-        unsigned max = bouncer->width + 2; // get the maxiumum of this X axis (add 2 to make it feel more accurate)
-        float angle = (x - (max / 2.0F)) / max * PI; // calculate the angle in radians where the bouncer X axis falls on -(pi/2) to pi/2
+        float x = ball->pos.x - bouncer->pos.x + (ball->size / 2) + 2; // get the X axis relative to the bouncer (add 2, see below)
+        unsigned max = bouncer->width + 4; // get the maxiumum of this X axis (add 4 to make it feel more accurate)
+        float angle = (x - (max / 2.0F)) / max * (PI / 1.5F); // calculate the angle in radians where the bouncer X axis falls on -60° to 60°
 
         // change the ball direction
         ball->direction.x = SDL_sinf(angle) * BALL_SPEED;
