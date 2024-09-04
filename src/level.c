@@ -51,7 +51,7 @@ void level_init(Level* level) {
 static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
     // if move bouncer LEFT
     if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
-        if ((bouncer->pos.x) < 0 == false) {
+        if (((bouncer->pos.x) < 0) == false) {
             bouncer->pos.x -= BOUNCER_SPEED;
 
             if (ball->moving == false)
