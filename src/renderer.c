@@ -49,7 +49,6 @@ void renderer_update(RenderData* render_data) {
     success |= SDL_RenderFillRectF(renderer, &(SDL_FRect) {level->ball.pos.x, level->ball.pos.y, level->ball.size, level->ball.size}); // draw ball
 
     // draw bricks
-    int bricks_left = 0;
     for (int x = 0; x < BRICK_COLUMNS; x++) {
         for (int y = 0; y < BRICK_ROWS; y++) {
             Brick* brick = &level->bricks[x][y];
