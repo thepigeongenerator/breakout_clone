@@ -81,7 +81,7 @@ static void close(SDL_Window* window, SDL_Renderer* renderer) {
 }
 
 // entry-point of the application
-int main(void) {
+int main(int argc, char *argv[]) {
     // initialize
     {
         const int code = init();
