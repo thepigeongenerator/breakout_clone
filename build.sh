@@ -26,7 +26,7 @@ args_win86-64()
 args_emscripten()
 {
     ARCHITECTURE="web"
-    COMPILER="/home/user/.local/bin/emcc"
+    COMPILER="emcc"         # just make sure it's in $PATH (it's a pain to install)
     ARGS="-s USE_SDL=2"
     FILE_EXSTENSION=".html"
 }
@@ -46,7 +46,7 @@ fi
 
 
 # make (and clear) the build directory
-mkdir "$BUILD_DIR $BUILD_DIR/$ARCHITECTURE"
+mkdir -p "$BUILD_DIR/$ARCHITECTURE"
 rm -rf "${BUILD_DIR:?}/$ARCHITECTURE/*"
 
 # copy included files or directories to the build directory
@@ -58,8 +58,8 @@ fi
 EXE_PATH=$BUILD_DIR/$ARCHITECTURE/$PROJECT_NAME$FILE_EXSTENSION
 echo "building at: $EXE_PATH"
 
-# check whether the compiler path contains an executable at said path
-if [ ! -x "$COMPILER" ]; then
+# check whether the compiler can actually be executed
+if [ ! -x "$COMPILER" ] && ! command -v "$COMPILER" > /dev/null; then
     echo -e "\033[91mCouldn't find an executable at path: \033[0m $COMPILER"
     exit 1
 fi
