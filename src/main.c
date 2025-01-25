@@ -41,7 +41,7 @@ static void init(void) {
 
     // initialize audio
     level->audio_device = audio_device_init(32000, AUDIO_S16, 1, 4096);
-    level->bounce_sfx = audio_load_wav(level->audio_device, "./assets/bounce.wav");
+    level->bounce_sfx = audio_load_wav(level->audio_device, "./bounce.wav");
 }
 
 // handles game application updating
