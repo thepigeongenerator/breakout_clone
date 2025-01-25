@@ -1,11 +1,17 @@
 #include "renderer.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
+#include <SDL_error.h>
+#include <SDL_rect.h>
+#include <SDL_render.h>
+#include <SDL_video.h>
 #include <stdio.h>
 
 #include "../constants.h"
 #include "../errors.h"
 #include "../game/level.h"
+
+
 
 // initializes the window and renderer
 int renderer_init(SDL_Window** window, SDL_Renderer** renderer) {

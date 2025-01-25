@@ -1,11 +1,14 @@
 #include "level.h"
 
-#include <SDL2/SDL.h>
+#include <SDL_scancode.h>
+#include <SDL_stdinc.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "../constants.h"
 #include "../main.h"
-#include "../window/renderer.h"
+#include "../window/audio.h"
+#include "../window/colour.h"
 #include "vector2.h"
 
 
@@ -49,7 +52,7 @@ void level_init(Level* level) {
 }
 
 // updates the player's "bouncer"
-static void update_player(Bouncer* bouncer, Ball* ball, const Uint8* keys) {
+static void update_player(Bouncer* bouncer, Ball* ball, const uint8_t* keys) {
     // if move bouncer LEFT
     if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) {
         if (((bouncer->pos.x) < 0) == false) {
@@ -150,7 +153,7 @@ static void update_ball(Level* level, Ball* ball, Bouncer* bouncer) {
 }
 
 // updates the level
-void level_update(Level* level, const Uint8* keys) {
+void level_update(Level* level, const uint8_t* keys) {
     Bouncer* bouncer = &level->bouncer;
     Ball* ball = &level->ball;
 

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include <SDL_render.h>
+#include <SDL_video.h>
 
 #include "../game/level.h"
 

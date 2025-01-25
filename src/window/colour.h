@@ -1,9 +1,12 @@
+#pragma once
+#include <stdint.h>
+
 typedef union {
     unsigned packed;
     struct {
-        unsigned char a;
-        unsigned char b;
-        unsigned char g;
-        unsigned char r;
+        uint8_t a;
+        uint8_t b;
+        uint8_t g;
+        uint8_t r;
     };
 } Colour;

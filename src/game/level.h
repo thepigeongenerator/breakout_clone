@@ -1,22 +1,22 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "../constants.h"
-#include "../window/colour.h"
 #include "../window/audio.h"
+#include "../window/colour.h"
 #include "vector2.h"
 
 typedef struct {
     Vector2 pos;
     Vector2 direction;
-    unsigned size;
+    uint32_t size;
     bool moving;
 } Ball;
 
 typedef struct {
     Vector2 pos;
-    unsigned width;
+    uint32_t width;
 } Bouncer;
 
 typedef struct {
@@ -35,4 +35,4 @@ typedef struct {
 
 
 void level_init(Level* level);
-void level_update(Level* level, const Uint8* keys);
+void level_update(Level* level, const uint8_t* keys);

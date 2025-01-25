@@ -1,8 +1,16 @@
 #include "main.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
+#include <SDL_audio.h>
+#include <SDL_error.h>
+#include <SDL_events.h>
+#include <SDL_keyboard.h>
+#include <SDL_render.h>
+#include <SDL_video.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "errors.h"
@@ -74,6 +82,8 @@ void stop(void) {
 
 // entry point of the application
 int main(int argc, char** argv) {
+    (void)argc;
+    (void)argv;
     init();
 
 #if __EMSCRIPTEN__

@@ -1,6 +1,7 @@
 #pragma once
+#include <stdint.h>
 
-typedef unsigned char ErrorCode;
+typedef uint8_t ErrorCode;
 enum {
     SUCCESS = 0,
     FAILURE = -1,
