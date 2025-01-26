@@ -30,7 +30,7 @@ static void audio_mixer(void* userdata, uint8_t* stream, int32_t len) {
         }
 
         // get the length of which we shall be mixing
-        uint32_t mix_length = SDL_min(audio[i].length, len);
+        uint32_t mix_length = SDL_min(audio[i].length, (uint32_t)len);
 
         // mix the audio with the stream
         SDL_MixAudioFormat(stream, audio[i].buffer, device->format, mix_length, SDL_MIX_MAXVOLUME);
@@ -73,12 +73,12 @@ AudioData audio_load_wav(const AudioDevice* audio_device, const char* file_path)
 }
 
 // initializes the audio device
-AudioDevice* audio_device_init(const int32_t freq, const SDL_AudioFormat format, const uint8_t channels, const uint16_t samples) {
+AudioDevice* audio_device_init(const int32_t freq, const SDL_AudioFormat format, const uint8_t channels, const Uint16 samples) {
     // allocate memory for the audio device
     AudioDevice* audio_device = malloc(sizeof(AudioDevice));
 
     // define the audio specification
-    SDL_AudioSpec spec = {freq, format, channels, samples};
+    SDL_AudioSpec spec = {freq, format, channels, 0, samples, 0, 0, NULL, NULL};
     spec.callback = audio_mixer;
     spec.userdata = audio_device;
 
